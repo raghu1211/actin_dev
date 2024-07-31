@@ -13,8 +13,8 @@ jobs:
     runs-on: self-hosted
     strategy:
       matrix:
-        os: [ubuntu-latest]
-        node-version: [18]
+        os: [linux]
+        node-version: [node20]
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -24,17 +24,17 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: Display package.json
-        run: cat package.json
-        working-directory: /home/craghu/Desktop/github/actions-runner/runner/actin_dev/actin_dev
+      # - name: Display package.json
+      #   run: cat package.json
+        # working-directory: /home/craghu/Desktop/github/actions-runner/runner/actin_dev/actin_dev
         
 
       - name: Install dependencies
-        working-directory: /home/craghu/Desktop/github/actions-runner/runner/actin_dev/actin_dev
+        # working-directory: /home/craghu/Desktop/github/actions-runner/runner/actin_dev/actin_dev
         run: npm install 
 
       - name: Run tests
-        working-directory: /home/craghu/Desktop/github/actions-runner/runner/actin_dev/actin_dev
+        # working-directory: /home/craghu/Desktop/github/actions-runner/runner/actin_dev/actin_dev
         run: npm test
         env:
           CI: true
