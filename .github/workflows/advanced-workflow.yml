@@ -24,13 +24,12 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: Install dependencies
-        run: npm install
-        working-directory: /home/craghu/Desktop/github/actions-runner/runner/actin_dev/actin_dev
+      # - name: Install dependencies
+      #   run: npm install
+      #   working-directory: /home/craghu/Desktop/github/actions-runner/runner/actin_dev/actin_dev
 
       - name: Run tests
         run: npm test
-        working-directory: /home/craghu/Desktop/github/actions-runner/runner/actin_dev/actin_dev
         env:
           CI: true
 
@@ -43,7 +42,6 @@ jobs:
 
       - name: Lint code
         run: npm run lint
-        working-directory: /home/craghu/Desktop/github/actions-runner/runner/actin_dev/actin_dev
 
   deploy:
     runs-on: self-hosted
