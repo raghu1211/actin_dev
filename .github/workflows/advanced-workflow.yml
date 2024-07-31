@@ -34,10 +34,10 @@ jobs:
           npm cache clean --force
           rm -rf node_modules
           npm install --verbose --no-optional
-        working-directory: /home/craghu/Desktop/github/actions-runner/runner/actin_dev/actin_dev
+        # working-directory: /home/craghu/Desktop/github/actions-runner/runner/actin_dev/actin_dev
 
       - name: Run tests
-        working-directory: /home/craghu/Desktop/github/actions-runner/runner/actin_dev/actin_dev
+        # working-directory: /home/craghu/Desktop/github/actions-runner/runner/actin_dev/actin_dev
         run: npm test
         env:
           CI: true
