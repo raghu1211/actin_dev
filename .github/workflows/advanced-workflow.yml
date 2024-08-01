@@ -35,7 +35,7 @@ jobs:
         run: |
           ls -al /home/craghu/Desktop/github/actions-runner/runner/actin_dev/actin_dev
           cat /home/craghu/Desktop/github/actions-runner/runner/actin_dev/actin_dev/package.json
-          cat /home/craghu/Desktop/github/actions-runner/runner/actin_dev/actin_dev/package-lock.json
+          # cat /home/craghu/Desktop/github/actions-runner/runner/actin_dev/actin_dev/package-lock.json
         working-directory: /home/craghu/Desktop/github/actions-runner/runner/actin_dev/actin_dev
 
       - name: Install dependencies
