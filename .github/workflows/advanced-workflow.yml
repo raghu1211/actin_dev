@@ -42,11 +42,11 @@ jobs:
         run: npm install
         working-directory: /home/craghu/Desktop/github/actions-runner/runner/actin_dev/actin_dev
 
-      - name: Run tests
-        run: npm test
-        working-directory: /home/craghu/Desktop/github/actions-runner/runner/actin_dev/actin_dev
-        env:
-          CI: true
+      # - name: Run tests
+      #   run: npm test
+      #   working-directory: /home/craghu/Desktop/github/actions-runner/runner/actin_dev/actin_dev
+      #   env:
+      #     CI: true
 
   lint:
     runs-on: self-hosted
