@@ -39,7 +39,7 @@ jobs:
         working-directory: /home/craghu/Desktop/github/actions-runner/runner/actin_dev/actin_dev
 
       - name: Install dependencies
-        run: npm ci
+        run: npm install
         working-directory: /home/craghu/Desktop/github/actions-runner/runner/actin_dev/actin_dev
 
       - name: Run tests
