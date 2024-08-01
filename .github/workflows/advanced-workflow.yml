@@ -72,6 +72,11 @@ jobs:
           fi
         working-directory: /home/craghu/Desktop/github/actions-runner/runner/actin_dev/actin_dev
 
+
+      - name: Install dependencies
+        run: npm install
+        working-directory: /home/craghu/Desktop/github/actions-runner/runner/actin_dev/actin_dev
+      
       - name: Lint code
         run: npm run lint
         working-directory: /home/craghu/Desktop/github/actions-runner/runner/actin_dev/actin_dev
