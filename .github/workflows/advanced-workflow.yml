@@ -3,7 +3,7 @@ name: Advanced CI/CD Pipeline
 on:
   push:
     branches:
-      - "**"
+      - " ** "
   pull_request:
     branches:
       - main
@@ -13,32 +13,38 @@ jobs:
     runs-on: self-hosted
     strategy:
       matrix:
-        os: [linux]
-        node-version: [16]
+        os: [ubuntu-latest]
+        node-version: [18]
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Set up Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
 
-      # - name: Display package.json
-      #   run: cat package.json
-        # working-directory: /home/craghu/Desktop/github/actions-runner/runner/actin_dev/actin_dev
-        
+      - name: Create package.json if it doesn't exist
+        run: |
+          if [ ! -f /home/craghu/Desktop/github/actions-runner/runner/actin_dev/actin_dev/package.json ]; then
+            echo '{}' > /home/craghu/Desktop/github/actions-runner/runner/actin_dev/actin_dev/package.json
+          fi
+        working-directory: /home/craghu/Desktop/github/actions-runner/runner/actin_dev/actin_dev
+
+      - name: Debug package.json and package-lock.json presence
+        run: |
+          ls -al /home/craghu/Desktop/github/actions-runner/runner/actin_dev/actin_dev
+          cat /home/craghu/Desktop/github/actions-runner/runner/actin_dev/actin_dev/package.json
+          cat /home/craghu/Desktop/github/actions-runner/runner/actin_dev/actin_dev/package-lock.json
+        working-directory: /home/craghu/Desktop/github/actions-runner/runner/actin_dev/actin_dev
 
       - name: Install dependencies
-        run: |
-          npm cache clean --force
-          rm -rf node_modules
-          npm install --verbose --no-optional
-        # working-directory: /home/craghu/Desktop/github/actions-runner/runner/actin_dev/actin_dev
+        run: npm ci
+        working-directory: /home/craghu/Desktop/github/actions-runner/runner/actin_dev/actin_dev
 
       - name: Run tests
-        # working-directory: /home/craghu/Desktop/github/actions-runner/runner/actin_dev/actin_dev
         run: npm test
+        working-directory: /home/craghu/Desktop/github/actions-runner/runner/actin_dev/actin_dev
         env:
           CI: true
 
@@ -47,10 +53,11 @@ jobs:
     needs: build
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Lint code
         run: npm run lint
+        working-directory: /home/craghu/Desktop/github/actions-runner/runner/actin_dev/actin_dev
 
   deploy:
     runs-on: self-hosted
@@ -59,11 +66,12 @@ jobs:
     environment: production
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Deploy application
         env:
           API_TOKEN: ${{ secrets.API_TOKEN }}
         run: |
           echo "Deploying application with token $API_TOKEN"
-          
+          # Add deployment commands here
+        working-directory: /home/craghu/Desktop/github/actions-runner/runner/actin_dev/actin_dev
