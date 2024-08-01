@@ -60,6 +60,13 @@ jobs:
         with:
           node-version: '18'
 
+      - name: Create package.json if it doesn't exist
+        run: |
+          if [ ! -f /home/craghu/Desktop/github/actions-runner/runner/actin_dev/actin_dev/package.json ]; then
+            echo '{}' > /home/craghu/Desktop/github/actions-runner/runner/actin_dev/actin_dev/package.json
+          fi
+        working-directory: /home/craghu/Desktop/github/actions-runner/runner/actin_dev/actin_dev
+
       - name: Install dependencies
         run: npm install
         working-directory: /home/craghu/Desktop/github/actions-runner/runner/actin_dev/actin_dev
