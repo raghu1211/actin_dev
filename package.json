@@ -2,7 +2,7 @@
   "name": "actin_dev",
   "version": "1.0.0",
   "scripts": {
-    "lint": "eslint /home/craghu/Desktop/github/actions-runner/runner/actin_dev/actin_dev/package.json"
+    "lint": "eslint /home/craghu/Desktop/github/actions-runner/runner/actin_dev/actin_dev/.eslintrc.js"
   },
   "devDependencies": {
     "eslint": "^8.0.0"
