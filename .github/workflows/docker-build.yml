@@ -28,5 +28,5 @@ jobs:
       - name: Run Docker container and script
         run: |
           chmod +x startJenkinsSlave2004.sh
-          ./startJenkinsSlave2004.sh.sh
+          ./startJenkinsSlave2004.sh
 
