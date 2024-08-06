@@ -24,7 +24,7 @@ HOST_CONFIG_DIR=${HOST_ROOT_DIR_B}/${JENKINS_NODE_NAME}/config
 
 docker run  -u jenkins -it  \
     --detach \
-    --cpus=8 \
+    --cpus=4 \
     --name ${DOCKER_CONTAINER_NAME} \
     --add-host jenkins.energid.net:10.0.0.114 \
     --add-host gitlab.energid.net:10.0.0.114 \
