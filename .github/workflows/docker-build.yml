@@ -30,3 +30,11 @@ jobs:
           chmod +x startJenkinsSlave2004.sh
           ./startJenkinsSlave2004.sh
 
+      - name: Log in to GitHub Container Registry
+        run: echo "${{ secrets.GHCR_PAT }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+
+      - name: Tag and push Docker image
+        run: |
+          IMAGE_NAME=ghcr.io/${{ github.repository }}/actin_dev:latest
+          docker tag actin_dev:latest $IMAGE_NAME
+          docker push $IMAGE_NAME
