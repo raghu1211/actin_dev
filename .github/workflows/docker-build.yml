@@ -97,7 +97,7 @@ jobs:
           password: ${{ secrets.GHCR_PAT }}
 
       - name: Scan Docker image for vulnerabilities
-        uses: docker://aquasec/trivy:0.31.3
+        uses: docker://aquasec/trivy:0.54.1
         with:
           args: --security-checks vuln image ghcr.io/${{ github.repository }}
 
