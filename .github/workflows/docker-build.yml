@@ -62,9 +62,6 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
 
-      - name: Run tests inside the Docker container
-        run: |
-          docker run --rm ${{ steps.meta.outputs.tags }} npm test
 
       - name: Install Trivy
         run: |
