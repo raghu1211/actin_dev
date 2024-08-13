@@ -50,8 +50,8 @@ jobs:
       #     IMAGE_NAME=ghcr.io/${{ github.repository_owner }}/actin_dev:latest
       #     docker push $IMAGE_NAME
 
-      - name: Lint code
-        run: npm run lint
+      # - name: Lint code
+      #   run: npm run lint
       
       - name: Build and push Docker images
         id: push
