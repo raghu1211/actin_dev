@@ -99,7 +99,7 @@ jobs:
       - name: Scan Docker image for vulnerabilities
         uses: docker://aquasec/trivy:0.31.3
         with:
-          args: image ghcr.io/${{ github.repository }}
+          args: --security-checks vuln image ghcr.io/${{ github.repository }}
 
 
 
