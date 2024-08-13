@@ -50,6 +50,9 @@ jobs:
       #     IMAGE_NAME=ghcr.io/${{ github.repository_owner }}/actin_dev:latest
       #     docker push $IMAGE_NAME
 
+      - name: Lint code
+        run: npm run lint
+      
       - name: Build and push Docker images
         id: push
         uses: docker/build-push-action@v3
@@ -59,9 +62,45 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
 
-      # - name: Generate artifact attestation
-      #   uses: actions/attest-build-provenance@v1
+      - name: Run tests inside the Docker container
+        run: |
+          docker run --rm ${{ steps.meta.outputs.tags }} npm test
+
+      - name: Install Trivy
+        run: |
+          sudo apt-get update && sudo apt-get install -y wget
+          wget https://github.com/aquasecurity/trivy/releases/download/v0.31.3/trivy_0.31.3_Linux-64bit.deb
+          sudo dpkg -i trivy_0.31.3_Linux-64bit.deb
+
+      - name: Scan Docker image for vulnerabilities
+        run: |
+          trivy image ${{ steps.meta.outputs.tags }}
+
+      - name: Generate artifact attestation
+        uses: actions/attest-build-provenance@v1
+        with:
+          subject-name: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME}}
+          subject-digest: ${{ steps.push.outputs.digest }}
+          push-to-registry: true
+          
+      - name: Clean up Docker
+        run: |
+          docker system prune -af
+
+      # - name: Notify Slack on success
+      #   if: success()
+      #   uses: 8398a7/action-slack@v3
       #   with:
-      #     subject-name: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME}}
-      #     subject-digest: ${{ steps.push.outputs.digest }}
-      #     push-to-registry: true
+      #     status: success
+      #     fields: repo,commit,author,link
+      #   env:
+      #     SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+      
+      # - name: Notify Slack on failure
+      #   if: failure()
+      #   uses: 8398a7/action-slack@v3
+      #   with:
+      #     status: failure
+      #     fields: repo,commit,author,link
+      #   env:
+      #     SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
